@@ -22,6 +22,61 @@ export const apis = makeApi([
 				token: z.string(),
 			}),
 		}),
+		errors: [
+			{
+				status: 401,
+				schema: z.object({
+					data: z.object({
+						message: z.string(),
+					}),
+				}),
+			},
+		],
+	},
+	{
+		method: 'post',
+		path: 'v1/auth/signup',
+		alias: 'signup',
+		parameters: [
+			{
+				name: 'body',
+				type: 'Body',
+				schema: z.object({
+					username: z.string(),
+					password: z.string(),
+					email: z
+						.string()
+						.email({ message: 'Invalid input for Email' }),
+					gender: z.string(),
+					age: z.number(),
+				}),
+			},
+		],
+		response: z.object({
+			data: z.object({
+				user: z.object({
+					id: z.number(),
+					username: z.string(),
+				}),
+				token: z.string(),
+			}),
+		}),
+		errors: [
+			{
+				status: 401,
+				schema: z.object({
+					data: z.object({
+						message: z.string(),
+					}),
+				}),
+			},
+			{
+				status: 500,
+				schema: z.object({
+					error: z.string(),
+				}),
+			},
+		],
 	},
 	{
 		method: 'get',
