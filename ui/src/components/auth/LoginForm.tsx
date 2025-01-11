@@ -9,7 +9,7 @@ import {
 	TextField,
 	Typography,
 } from '@mui/material';
-import { AuthContext } from '../../hooks/AuthContext';
+import { AuthContext } from '@hooks/AuthContext';
 
 const LoginForm: React.FC = () => {
 	const [identifier, setIdentifier] = useState<string>('');

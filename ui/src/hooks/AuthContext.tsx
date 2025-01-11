@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, useCallback } from 'react';
-import apiClient, { apis } from '../api/client';
+import apiClient, { apis } from '@src/api/client';
 import { isErrorFromAlias } from '@zodios/core';
-import { signup } from '../components/auth/types/auth.types';
+import { Signup } from '@src/types/auth';
 
 type Props = {
 	children?: React.ReactNode;
@@ -18,7 +18,7 @@ export interface IAuthContext {
 	user: User | null;
 	login: (email: string, password: string) => Promise<void>;
 	logout: () => void;
-	signup: (payload: signup) => Promise<void>;
+	signup: (payload: Signup) => Promise<void>;
 }
 
 interface User {
@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }: Props) => {
 		}
 	}, []);
 
-	const signup = useCallback(async (payload: signup) => {
+	const signup = useCallback(async (payload: Signup) => {
 		try {
 			const response = await apiClient.signup(payload);
 			const { token, user } = response?.data;

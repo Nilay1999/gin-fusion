@@ -14,9 +14,9 @@ import {
 	CircularProgress,
 } from '@mui/material';
 import { useContext, useState } from 'react';
-import { signup } from './types/auth.types';
-import { AuthContext } from '../../hooks/AuthContext';
+import { AuthContext } from '@hooks/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { Signup } from '@src/types/auth';
 
 const Register = () => {
 	const [username, setUsername] = useState<string>('');
@@ -53,7 +53,7 @@ const Register = () => {
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 
-		const payload: signup = {
+		const payload: Signup = {
 			age,
 			email,
 			gender,

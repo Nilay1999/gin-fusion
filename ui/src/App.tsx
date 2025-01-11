@@ -6,10 +6,10 @@ import {
 	Navigate,
 	Outlet,
 } from 'react-router-dom';
-import { AuthProvider, AuthContext } from './hooks/AuthContext';
-import Register from './components/auth/Register';
-import LoginPage from './components/auth/LoginForm';
-import { Dashboard } from './components/Dashboard';
+import { AuthProvider, AuthContext } from '@hooks/AuthContext';
+import Register from '@components/auth/Register';
+import LoginPage from '@components/auth/LoginForm';
+import { Dashboard } from '@components/Dashboard';
 
 const App = () => {
 	const PrivateRoute = () => {
