@@ -85,3 +85,19 @@ func (p PostController) Downvote(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusOK, gin.H{"upvote": upvote, "downvote": downvote})
 }
+
+func (p PostController) UploadFileHandler(ctx *gin.Context) {
+	file, err := ctx.FormFile("image")
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"message": "File is required"})
+		return
+	}
+
+	publicURL, uploadErr := postService.UploadFile(file)
+	if uploadErr != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"message": "Failed to upload file", "error": uploadErr.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"public_url": publicURL})
+}

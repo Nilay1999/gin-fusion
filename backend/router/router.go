@@ -58,6 +58,10 @@ func InitRouter() *gin.Engine {
 			post := new(controllers.PostController)
 			postGroup.POST("/downvote/:id", post.Downvote)
 		}
+		{
+			post := new(controllers.PostController)
+			postGroup.POST("/upload", post.UploadFileHandler)
+		}
 
 		authGroup := v1.Group("auth")
 		{
