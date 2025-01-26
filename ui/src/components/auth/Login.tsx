@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { AuthContext } from '@hooks/AuthContext';
 
-const LoginForm: React.FC = () => {
+const Login: React.FC = () => {
 	const [identifier, setIdentifier] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 	const [loading, setLoading] = useState<boolean>(false);
@@ -120,4 +120,4 @@ const LoginForm: React.FC = () => {
 	);
 };
 
-export default LoginForm;
+export default Login;

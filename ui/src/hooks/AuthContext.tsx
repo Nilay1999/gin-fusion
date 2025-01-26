@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, useCallback } from 'react';
-import apiClient, { apis } from '@src/api/client';
+import apiClient, { apis } from '@api/client';
 import { isErrorFromAlias } from '@zodios/core';
-import { Signup } from '@src/types/auth';
+import { Signup } from '@customTypes/auth';
 
 type Props = {
 	children?: React.ReactNode;
