@@ -1,44 +1,19 @@
-import { useContext, useMemo, useState } from 'react';
-import {
-	BrowserRouter as Router,
-	Route,
-	Routes,
-	Navigate,
-	Outlet,
-} from 'react-router-dom';
-import { AuthContext, AuthProvider } from '@hooks/AuthContext';
-import Login from '@components/auth/Login';
-import Register from '@components/auth/Register';
+import { useMemo, useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { AuthProvider } from '@hooks/AuthContext';
 import { ThemeProvider } from '@mui/material';
-import { Dashboard } from '@components/Dashboard';
 import themeConfig from '@components/theme';
+import AppRoutes from './AppRoutes';
 
 const App: React.FC = () => {
-	const [mode, setMode] = useState<'light' | 'dark'>('light');
-	const theme = useMemo(() => themeConfig(mode), [mode]);
-	const PrivateRoute = () => {
-		const { authenticated } = useContext(AuthContext);
-		if (!authenticated) return <Navigate to="/login" replace />;
-
-		return <Outlet />;
-	};
+	const [mode, setMode] = useState<'light' | 'dark'>('dark');
+	const theme = useMemo(() => themeConfig(mode, 'professional'), [mode]);
 
 	return (
 		<ThemeProvider theme={theme}>
 			<AuthProvider>
 				<Router>
-					<Routes>
-						<Route path="/login" element={<Login />} />
-						<Route path="/signup" element={<Register />} />
-						<Route element={<PrivateRoute />}>
-							<Route
-								path="/home"
-								element={
-									<Dashboard mode={mode} setMode={setMode} />
-								}
-							/>
-						</Route>
-					</Routes>
+					<AppRoutes mode={mode} setMode={setMode} />
 				</Router>
 			</AuthProvider>
 		</ThemeProvider>

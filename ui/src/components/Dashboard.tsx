@@ -1,30 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
-	AppBar,
 	Box,
 	CssBaseline,
 	Drawer,
-	IconButton,
 	List,
-	ListItemButton,
+	ListItem,
 	ListItemIcon,
 	ListItemText,
 	Switch,
 	Toolbar,
-	Typography,
-	useTheme,
 } from '@mui/material';
-import { styled } from '@mui/system';
+import { borderRadius, borderRight, styled } from '@mui/system';
 import {
 	Home,
 	Settings,
-	BarChart,
+	Explore,
 	Brightness4,
 	Brightness7,
 } from '@mui/icons-material';
-import MenuIcon from '@mui/icons-material/Menu';
+import { Link, Outlet, useLocation } from 'react-router-dom';
+import StyledListItemButton from './button/StyledListItemButton';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const Root = styled(Box)({
 	display: 'flex',
@@ -41,12 +38,13 @@ const StyledDrawer = styled(Drawer)(({ theme }) => ({
 		boxSizing: 'border-box',
 		backgroundColor: theme.palette.background.paper,
 		color: theme.palette.text.primary,
+		boxShadow: 'none',
+		borderRight: 'none',
 	},
 }));
 
 const MainContent = styled(Box)(({ theme }) => ({
 	flexGrow: 1,
-	padding: theme.spacing(3),
 	backgroundColor: theme.palette.background.default,
 	marginLeft: drawerWidth,
 	width: `calc(100% - ${drawerWidth}px)`,
@@ -55,14 +53,11 @@ const MainContent = styled(Box)(({ theme }) => ({
 	overflow: 'auto',
 }));
 
-const StyledAppBar = styled(AppBar)(({ theme }) => ({
-	backgroundColor: theme.palette.background.default,
-	color: theme.palette.text.primary,
-	width: `calc(100% - ${drawerWidth}px)`,
-	marginLeft: drawerWidth,
-	boxSizing: 'border-box',
-	boxShadow: 'none',
-}));
+const StyledListItemIcon = styled(ListItemIcon)({
+	minWidth: '40px',
+	display: 'flex',
+	justifyContent: 'flex-start',
+});
 
 interface DashboardProps {
 	mode: 'light' | 'dark';
@@ -70,7 +65,10 @@ interface DashboardProps {
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({ mode, setMode }) => {
-	const theme = useTheme();
+	const location = useLocation();
+	const handleSelected = (path: string) => {
+		return location.pathname === `/${path}`;
+	};
 
 	const handleThemeToggle = () => {
 		setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
@@ -79,80 +77,77 @@ export const Dashboard: React.FC<DashboardProps> = ({ mode, setMode }) => {
 	return (
 		<Root>
 			<CssBaseline />
-			{/* AppBar */}
-			<StyledAppBar position="fixed">
-				<Toolbar>
-					<Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
-						Dashboard
-					</Typography>
-					{/* Theme Switch */}
-				</Toolbar>
-			</StyledAppBar>
-
 			{/* Drawer */}
 			<StyledDrawer variant="permanent">
-				<Toolbar>
-					<IconButton
-						size="large"
-						edge="start"
-						color="inherit"
-						aria-label="open drawer"
-						sx={{ mr: 2 }}>
-						<MenuIcon />
-					</IconButton>
-				</Toolbar>
-				<Box sx={{ overflow: 'auto' }}>
-					<List>
-						<ListItemButton>
-							<ListItemIcon>
-								<Home color="inherit" />
-							</ListItemIcon>
+				<List>
+					<ListItem disablePadding>
+						<StyledListItemButton
+							component={Link}
+							to="/"
+							selected={handleSelected('')}>
+							<StyledListItemIcon>
+								<Home />
+							</StyledListItemIcon>
 							<ListItemText primary="Home" />
-						</ListItemButton>
-						<ListItemButton>
-							<ListItemIcon>
-								<BarChart color="inherit" />
-							</ListItemIcon>
-							<ListItemText primary="Analytics" />
-						</ListItemButton>
-						<ListItemButton>
-							<ListItemIcon>
-								<Settings color="inherit" />
-							</ListItemIcon>
+						</StyledListItemButton>
+					</ListItem>
+					<ListItem disablePadding>
+						<StyledListItemButton
+							component={Link}
+							to="/explore"
+							selected={handleSelected('explore')}>
+							<StyledListItemIcon>
+								<Explore />
+							</StyledListItemIcon>
+							<ListItemText primary="Explore" />
+						</StyledListItemButton>
+					</ListItem>
+					<ListItem disablePadding>
+						<StyledListItemButton
+							component={Link}
+							to="/settings"
+							selected={handleSelected('settings')}>
+							<StyledListItemIcon>
+								<Settings />
+							</StyledListItemIcon>
 							<ListItemText primary="Settings" />
-						</ListItemButton>
-						<ListItemButton>
-							<Switch
-								color="default"
-								checked={mode === 'dark'}
-								onChange={handleThemeToggle}
-								inputProps={{
-									'aria-label': 'toggle theme mode',
-								}}
-							/>
-							<IconButton color="inherit">
-								{mode === 'dark' ? (
-									<Brightness7 />
-								) : (
-									<Brightness4 />
-								)}
-							</IconButton>
-						</ListItemButton>
-					</List>
-					{/* <Divider /> */}
-				</Box>
+						</StyledListItemButton>
+					</ListItem>
+				</List>
+
+				{/* Spacer to push the Switch to the bottom */}
+				<Box sx={{ flexGrow: 1 }} />
+
+				{/* Theme Switch at the bottom */}
+				<List>
+					<ListItem
+						sx={{
+							display: 'flex',
+							justifyContent: 'space-between',
+						}}>
+						<StyledListItemIcon>
+							{mode === 'dark' ? (
+								<Brightness7 />
+							) : (
+								<Brightness4 />
+							)}
+						</StyledListItemIcon>
+						<Switch
+							color="default"
+							edge="start"
+							checked={mode === 'dark'}
+							onChange={handleThemeToggle}
+							inputProps={{ 'aria-label': 'toggle theme mode' }}
+						/>
+					</ListItem>
+				</List>
 			</StyledDrawer>
 
 			{/* Main Content */}
 			<MainContent>
 				<Toolbar />
-				<Typography variant="h4" gutterBottom>
-					Welcome to the Dashboard
-				</Typography>
-				<Typography variant="body1">
-					This is your dashboard where you can manage your tasks, view
-					analytics, and configure settings.
-				</Typography>
+				<Outlet />
+				{/* This is where the dynamic content will be rendered */}
 			</MainContent>
 		</Root>
 	);
