@@ -7,6 +7,7 @@ import { Dashboard } from '@components/Dashboard';
 import HomePage from 'pages/Home';
 import ExplorePage from 'pages/Explore';
 import SettingsPage from 'pages/Settings';
+import Layout from '@components/Layout';
 
 const PrivateRoute = () => {
 	const { authenticated } = useContext(AuthContext);
@@ -28,7 +29,7 @@ const AppRoutes = ({
 			<Route element={<PrivateRoute />}>
 				<Route
 					path="/"
-					element={<Dashboard mode={mode} setMode={setMode} />}>
+					element={<Layout mode={mode} setMode={setMode} />}>
 					<Route index element={<HomePage />} />
 					<Route path="explore" element={<ExplorePage />} />
 					<Route path="settings" element={<SettingsPage />} />

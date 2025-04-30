@@ -7,13 +7,13 @@ import {
 	IconButton,
 	Box,
 	Avatar,
+	Slide,
 } from '@mui/material';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ShareIcon from '@mui/icons-material/Share';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 
 interface CustomCardProps {
 	title: string;
@@ -41,6 +41,10 @@ const Post = ({
 	const [upvotes, setUpvote] = useState<number>(0);
 	const [vote, setVote] = useState<VoteType | null>(null);
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
+	const [slideDirection, setSlideDirection] = useState<'left' | 'right'>(
+		'right'
+	);
+	const [isSliding, setIsSliding] = useState(true);
 
 	const handleUpdateVote = () => {
 		if (vote === VoteType.upvote) {
@@ -65,15 +69,25 @@ const Post = ({
 	};
 
 	const prevImage = () => {
-		setCurrentImageIndex((prevIndex) =>
-			prevIndex === 0 ? images.length - 1 : prevIndex - 1
-		);
+		setIsSliding(false);
+		setTimeout(() => {
+			setSlideDirection('right');
+			setCurrentImageIndex((prevIndex) =>
+				prevIndex === 0 ? images.length - 1 : prevIndex - 1
+			);
+			setIsSliding(true);
+		}, 10);
 	};
 
 	const nextImage = () => {
-		setCurrentImageIndex((prevIndex) =>
-			prevIndex === images.length - 1 ? 0 : prevIndex + 1
-		);
+		setIsSliding(false);
+		setTimeout(() => {
+			setSlideDirection('left');
+			setCurrentImageIndex((prevIndex) =>
+				prevIndex === images.length - 1 ? 0 : prevIndex + 1
+			);
+			setIsSliding(true);
+		}, 10);
 	};
 
 	return (
@@ -99,30 +113,40 @@ const Post = ({
 			</Box>
 
 			{/* Image Carousel */}
-			<Box sx={{ position: 'relative' }}>
-				<CardMedia
-					component="img"
-					height="400"
-					image={images[currentImageIndex]}
-					alt={title}
-					sx={{
-						objectFit: 'contain',
-						backgroundColor: '#272932',
-					}}
-				/>
+			<Box sx={{ position: 'relative', overflow: 'hidden' }}>
+				<Slide
+					in={isSliding}
+					direction={slideDirection}
+					timeout={300}
+					key={currentImageIndex}>
+					<CardMedia
+						component="img"
+						height="400"
+						image={images[currentImageIndex]}
+						alt={title}
+						sx={{
+							objectFit: 'contain',
+							backgroundColor: (theme) =>
+								theme.palette.mode === 'dark'
+									? theme.palette.grey[900]
+									: theme.palette.grey[200],
+						}}
+					/>
+				</Slide>
 
 				{/* Left Arrow */}
 				<IconButton
 					sx={{
 						position: 'absolute',
 						top: '50%',
-						left: 10,
+						left: 0,
 						transform: 'translateY(-50%)',
-						bgcolor: 'rgba(0, 0, 0, 0.5)',
-						color: 'white',
+						backgroundColor: (theme) =>
+							theme.palette.background.paper,
+						marginLeft: 2,
 					}}
 					onClick={prevImage}>
-					<ArrowBackIosIcon />
+					<ChevronLeft />
 				</IconButton>
 
 				{/* Right Arrow */}
@@ -130,13 +154,14 @@ const Post = ({
 					sx={{
 						position: 'absolute',
 						top: '50%',
-						right: 10,
+						right: 0,
 						transform: 'translateY(-50%)',
-						bgcolor: 'rgba(0, 0, 0, 0.5)',
-						color: 'white',
+						marginRight: 2,
+						backgroundColor: (theme) =>
+							theme.palette.background.paper,
 					}}
 					onClick={nextImage}>
-					<ArrowForwardIosIcon />
+					<ChevronRight />
 				</IconButton>
 			</Box>
 

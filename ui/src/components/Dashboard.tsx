@@ -1,4 +1,10 @@
-import React, { useState } from 'react';
+import {
+	Brightness4,
+	Brightness7,
+	Explore,
+	Home,
+	Settings,
+} from '@mui/icons-material';
 import {
 	Box,
 	CssBaseline,
@@ -10,16 +16,15 @@ import {
 	Switch,
 	Toolbar,
 } from '@mui/material';
-import { borderRadius, borderRight, styled } from '@mui/system';
-import {
-	Home,
-	Settings,
-	Explore,
-	Brightness4,
-	Brightness7,
-} from '@mui/icons-material';
+import { styled } from '@mui/system';
+import React from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import StyledListItemButton from './button/StyledListItemButton';
+
+interface DashboardProps {
+	mode: 'light' | 'dark';
+	setMode: React.Dispatch<React.SetStateAction<'light' | 'dark'>>;
+}
 
 const drawerWidth = 200;
 
@@ -54,15 +59,10 @@ const MainContent = styled(Box)(({ theme }) => ({
 }));
 
 const StyledListItemIcon = styled(ListItemIcon)({
-	minWidth: '40px',
+	minWidth: '45px',
 	display: 'flex',
-	justifyContent: 'flex-start',
+	justifyContent: 'left',
 });
-
-interface DashboardProps {
-	mode: 'light' | 'dark';
-	setMode: React.Dispatch<React.SetStateAction<'light' | 'dark'>>;
-}
 
 export const Dashboard: React.FC<DashboardProps> = ({ mode, setMode }) => {
 	const location = useLocation();
@@ -78,6 +78,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ mode, setMode }) => {
 		<Root>
 			<CssBaseline />
 			{/* Drawer */}
+
 			<StyledDrawer variant="permanent">
 				<List>
 					<ListItem disablePadding>
@@ -115,10 +116,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ mode, setMode }) => {
 					</ListItem>
 				</List>
 
-				{/* Spacer to push the Switch to the bottom */}
 				<Box sx={{ flexGrow: 1 }} />
-
-				{/* Theme Switch at the bottom */}
 				<List>
 					<ListItem
 						sx={{
