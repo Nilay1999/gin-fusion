@@ -5,9 +5,11 @@ go 1.21.0
 toolchain go1.21.9
 
 require (
+	github.com/gin-contrib/cors v1.7.3
 	github.com/gin-gonic/gin v1.10.0
 	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/golodash/galidator v1.4.3
+	github.com/supabase-community/storage-go v0.7.0
 )
 
 require (
@@ -15,19 +17,16 @@ require (
 	github.com/cloudwego/base64x v0.1.4 // indirect
 	github.com/cloudwego/iasm v0.2.0 // indirect
 	github.com/dlclark/regexp2 v1.7.0 // indirect
-	github.com/gin-contrib/cors v1.7.3 // indirect
 	github.com/golang/protobuf v1.5.0 // indirect
 	github.com/golodash/godash v1.2.0 // indirect
 	github.com/jinzhu/copier v0.3.5 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/nyaruka/phonenumbers v1.1.6 // indirect
 	github.com/rogpeppe/go-internal v1.12.0 // indirect
-	github.com/supabase-community/storage-go v0.7.0 // indirect
 )
 
 require (
 	github.com/bytedance/sonic v1.12.6 // indirect
-	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.7 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect

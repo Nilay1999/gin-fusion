@@ -10,13 +10,14 @@ import {
 	Typography,
 } from '@mui/material';
 import { AuthContext } from '@hooks/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
 	const [identifier, setIdentifier] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 	const [loading, setLoading] = useState<boolean>(false);
 	const [error, setError] = useState<string | null>('');
-
+	const navigate = useNavigate();
 	const { login } = useContext(AuthContext);
 
 	const handleSubmit = async (e: React.FormEvent) => {
@@ -26,6 +27,7 @@ const Login: React.FC = () => {
 
 		try {
 			await login(identifier, password);
+			navigate('/');
 		} catch (err) {
 			setError('Invalid credentials or an error occurred.');
 		} finally {

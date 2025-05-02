@@ -37,7 +37,7 @@ const Post = ({
 	profilePic,
 	timestamp,
 }: CustomCardProps) => {
-	const [downvotes, setDownvotes] = useState<number>(0);
+	const [downvotes, setDownvotes] = useState<number>(10);
 	const [upvotes, setUpvote] = useState<number>(0);
 	const [vote, setVote] = useState<VoteType | null>(null);
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -187,7 +187,7 @@ const Post = ({
 						}>
 						<ArrowCircleUpIcon />
 					</IconButton>
-					<Typography>{upvotes}</Typography>
+					<Typography sx={{ mr: 2, minWidth: '20px', textAlign: 'center' }}>{upvotes}</Typography>
 					<IconButton
 						onClick={handleDownVote}
 						color={
@@ -195,8 +195,8 @@ const Post = ({
 						}>
 						<ArrowCircleDownIcon />
 					</IconButton>
-					<Typography>{downvotes}</Typography>
-					<IconButton sx={{ marginLeft: 'auto' }}>
+					<Typography sx={{ minWidth: '20px', textAlign: 'center' }}>{downvotes}</Typography>
+					<IconButton sx={{ ml: 'auto' }}>
 						<ChatBubbleOutlineIcon />
 					</IconButton>
 					<IconButton>
