@@ -22,6 +22,7 @@ func (p Post) Create(data types.CreatePost) (*Post, error) {
 			Title:  data.Title,
 			Body:   data.Body,
 			UserID: data.UserId,
+			Images: data.Images,
 		},
 	}
 	result := initializers.Repository.Create(&post)

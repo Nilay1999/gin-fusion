@@ -20,7 +20,7 @@ func AuthenticateRequest(ctx *gin.Context) {
 		return
 	}
 
-	token, _ := jwt.Parse(authToken, func(token *jwt.Token) (interface{}, error) {
+	token, _ := jwt.Parse(authToken, func(token *jwt.Token) (any, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected singing method: %v", token.Header["alg"])
 		}
@@ -48,5 +48,4 @@ func AuthenticateRequest(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Unauthorized"})
 		return
 	}
-
 }

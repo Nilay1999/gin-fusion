@@ -1,11 +1,10 @@
 package types
 
-import "mime/multipart"
-
 type CreatePost struct {
-	Title  string `json:"title" binding:"required" required:"title is required"`
-	Body   string `json:"body" binding:"required" required:"body is required"`
-	UserId uint   `json:"userId" binding:"required" required:"userId is required"`
+	Title  string   `json:"title" binding:"required" required:"title is required"`
+	Body   string   `json:"body" binding:"required" required:"body is required"`
+	UserId uint     `json:"userId" binding:"required" required:"userId is required"`
+	Images []string `json:"images" binding:"required" required:"image Urls array is required"`
 }
 
 type Votes struct {
@@ -29,8 +28,4 @@ type PostReponse struct {
 
 type VotePost struct {
 	UserId uint `json:"userId" binding:"required" required:"userId is required"`
-}
-
-type UploadImage struct {
-	Image *multipart.FileHeader `form:"image" binding:"required"`
 }

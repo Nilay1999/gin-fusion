@@ -15,6 +15,7 @@ func init() {
 }
 
 func main() {
+	migrate()
 	r := router.InitRouter()
 	r.Run(":" + os.Getenv("PORT"))
 }
