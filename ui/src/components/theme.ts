@@ -15,17 +15,20 @@ const themeMaker = (mode: PaletteMode, style: 'professional') =>
 		palette: {
 			mode,
 			...(style === 'professional' && {
-				primary: { main: mode === 'dark' ? '#009BE5' : '#1976D2' },
-				secondary: { main: mode === 'dark' ? '#FFB74D' : '#FF6B6B' },
+				primary: { main: mode === 'dark' ? '#3B82F6' : '#2563EB' },
+				secondary: { main: mode === 'dark' ? '#F59E0B' : '#D97706' },
 				background: {
-					default: mode === 'dark' ? '#272932' : '#F8F9FA',
-					paper: mode === 'dark' ? '#22242C' : '#FFFFFF',
+					default: mode === 'dark' ? '#1F2937' : '#F5F5F5',
+					paper: mode === 'dark' ? '#374151' : '#FFFFFF',
 				},
 				text: {
 					primary: mode === 'dark' ? '#E0E0E0' : '#2C3E50',
 					secondary: mode === 'dark' ? '#B0BEC5' : '#34495E',
 				},
-				divider: mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)',
+				divider:
+					mode === 'dark'
+						? 'rgba(255, 255, 255, 0.12)'
+						: 'rgba(0, 0, 0, 0.08)',
 			}),
 		},
 		typography: {
@@ -36,8 +39,8 @@ const themeMaker = (mode: PaletteMode, style: 'professional') =>
 		components: {
 			MuiButton: {
 				styleOverrides: {
-					root: { 
-						textTransform: 'none', 
+					root: {
+						textTransform: 'none',
 						borderRadius: 8,
 						boxShadow: 'none',
 						'&:hover': {

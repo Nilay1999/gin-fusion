@@ -103,6 +103,30 @@ export const apis = makeApi([
 			Authorization: `Bearer ${localStorage.getItem('token')}`,
 		},
 	},
+	{
+		method: 'get',
+		path: 'v1/post?page=1&limit=30',
+		alias: 'getPaginatedPosts',
+		description: 'Get Paginated Posts',
+		response: z.object({
+			data: z.array(
+				z.object({
+					id: z.number(),
+					createAt: z.string(),
+					updatedAt: z.string(),
+					deletedAt: z.string(),
+					title: z.string(),
+					body: z.string(),
+					images: z.array(z.string()),
+					votes: z.any().nullable(),
+					user: z.object({
+						id: z.number(),
+						username: z.string(),
+					}),
+				})
+			),
+		}),
+	},
 ]);
 
 const apiClient = new Zodios('http://localhost:8080', apis);

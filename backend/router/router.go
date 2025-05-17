@@ -2,6 +2,7 @@ package router
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/Nilay1999/gin-gonic-server/controllers"
 	"github.com/Nilay1999/gin-gonic-server/middleware"
@@ -12,8 +13,16 @@ import (
 func InitRouter() *gin.Engine {
 	router := gin.New()
 	router.ForwardedByClientIP = true
+	config := cors.Config{
+		AllowOrigins:     []string{"http://localhost:3000"}, // Add your frontend URL
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}
 	router.Use(gin.Logger())
-	router.Use(cors.Default())
+	router.Use(cors.New(config))
 
 	router.GET("/health-check", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{

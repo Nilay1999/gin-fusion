@@ -32,6 +32,7 @@ func PostMapper(post models.Post) *types.PostReponse {
 		Title:     post.Title,
 		Body:      post.Body,
 		Votes:     MapVotes(post.Votes),
+		Images:    post.Images,
 		User: types.UserResponse{
 			ID:       post.User.ID,
 			Username: post.User.Username,

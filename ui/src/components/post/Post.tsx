@@ -129,7 +129,7 @@ const Post = ({
 							backgroundColor: (theme) =>
 								theme.palette.mode === 'dark'
 									? theme.palette.grey[900]
-									: theme.palette.grey[200],
+									: theme.palette.grey[400],
 						}}
 					/>
 				</Slide>
@@ -187,7 +187,10 @@ const Post = ({
 						}>
 						<ArrowCircleUpIcon />
 					</IconButton>
-					<Typography sx={{ mr: 2, minWidth: '20px', textAlign: 'center' }}>{upvotes}</Typography>
+					<Typography
+						sx={{ mr: 2, minWidth: '20px', textAlign: 'center' }}>
+						{upvotes}
+					</Typography>
 					<IconButton
 						onClick={handleDownVote}
 						color={
@@ -195,7 +198,9 @@ const Post = ({
 						}>
 						<ArrowCircleDownIcon />
 					</IconButton>
-					<Typography sx={{ minWidth: '20px', textAlign: 'center' }}>{downvotes}</Typography>
+					<Typography sx={{ minWidth: '20px', textAlign: 'center' }}>
+						{downvotes}
+					</Typography>
 					<IconButton sx={{ ml: 'auto' }}>
 						<ChatBubbleOutlineIcon />
 					</IconButton>

@@ -16,14 +16,15 @@ type Votes struct {
 }
 
 type PostReponse struct {
-	ID        uint    `json:"id"`
-	CreatedAt string  `json:"createAt"`
-	UpdatedAt string  `json:"updatedAt"`
-	DeletedAt string  `json:"deletedAt"`
-	Title     string  `json:"title"`
-	Body      string  `json:"body"`
-	Votes     []Votes `json:"votes"`
-	User      UserResponse
+	ID        uint         `json:"id"`
+	CreatedAt string       `json:"createAt"`
+	UpdatedAt string       `json:"updatedAt"`
+	DeletedAt string       `json:"deletedAt"`
+	Title     string       `json:"title"`
+	Body      string       `json:"body"`
+	Images    []string     `json:"images"`
+	Votes     []Votes      `json:"votes"`
+	User      UserResponse `json:"user"`
 }
 
 type VotePost struct {

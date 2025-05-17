@@ -1,7 +1,6 @@
 package services
 
 import (
-	"fmt"
 	"mime/multipart"
 	"os"
 
@@ -9,7 +8,7 @@ import (
 	"github.com/Nilay1999/gin-gonic-server/models"
 	"github.com/Nilay1999/gin-gonic-server/types"
 	"github.com/Nilay1999/gin-gonic-server/utils"
-	storage_go "github.com/supabase-community/storage-go"
+	storageGo "github.com/supabase-community/storage-go"
 )
 
 type Post struct {
@@ -72,8 +71,7 @@ func (p Post) UploadFile(file *multipart.FileHeader) (string, error) {
 	}
 	defer fileContent.Close()
 
-	fmt.Println(os.Getenv("SUPABASE_S3_URL"))
-	storageClient := storage_go.NewClient(
+	storageClient := storageGo.NewClient(
 		os.Getenv("SUPABASE_S3_URL"),
 		os.Getenv("SUPABASE_SECRET"),
 		nil,
